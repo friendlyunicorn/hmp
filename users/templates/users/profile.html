@@ -40,10 +40,10 @@
                                     <p class="card-text">Price: {{ item.price }} rub</p>
                                     <div class="card-btns">
                                         <div class="d-flex">
-                                            <a href="" class="btn btn-success w-50 mx-1">Edit</a>
-                                            <a href="" class="btn btn-danger w-50 mx-1">Delete</a>
+                                            <a href="" class="btn btn-success w-50 mx-1">Buy</a>
+                                            <a href="" class="btn btn-danger w-50 mx-1">To favorites</a>
                                         </div>
-                                        <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
+                                        <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Read info about item</a>
                                     </div>
                                 </div>
                             </div>

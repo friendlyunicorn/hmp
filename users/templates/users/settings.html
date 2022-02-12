@@ -5,8 +5,10 @@
     <form action="" method="post" class="w-50">
         {% csrf_token %}
         <label for="">User photo</label></br>
-        <img src="{{ user.user_image.url }}" alt=""     style="width: 256px; height: 256px; border-radius: 100%;">
-        <input type="file" name="user_photo" id=""><br><br>
+        {% if user.user_image %}
+        <img src="{{ user.user_image.url }}" alt="" style="width: 256px; height: 256px; border-radius: 100%; object-fit: cover;">
+        {% endif %}
+        <input type="file" name="user_photo" id="" value="{{ user.user_image.url }}"><br><br>
         <label for="">Username</label><br>
         <input type="text" name="username" id="" value="{{ user.name }}" class="w-100"><br><br>
         <label for="">Status</label>

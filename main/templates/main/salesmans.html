@@ -1,7 +1,19 @@
 {% extends 'main/base.html' %}
 {% block title %}Salesmans{% endblock %}
 {% block content %}
+<div class="row">
 	{% for i in salesmans %}
-		<a href="{% url 'profile' i.user.pk %}">{{ i.name }}</a>
+	<div class="col-3 d-flex justify-content-center">
+		<div class="d-flex flex-column card-salesman">
+			<img src="{{ i.user_image.url }}" alt="" style="width: 256px; height: 256px; border-radius: 1rem; object-fit: cover;" class="mb-3">
+			<p><span style="opacity: .7;">Name: </span>{{ i.user }}</p>
+			<p><span style="opacity: .7;">Raiting: </span>{{ i.raiting }}</p>
+			{% if i.verification %}
+			<p><b>Verified seller</b></p>
+			{% endif %}
+			<a href="{% url 'profile' i.user.pk %}" class="btn btn-primary">Go to profile</a>
+		</div>
+	</div>
 	{% endfor %}
+</div>
 {% endblock %}

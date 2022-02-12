@@ -102,13 +102,15 @@ def profile_settings(request):
         username = request.POST.get('username')
         status = request.POST.get('status')
         avatar = request.POST.get('user_photo')
+        if avatar:
+            user.user_image = avatar
+            user.save()
         if username:
             user = Profile.objects.get(user=request.user.pk)
             user.status = status
             user2 = User.objects.get(pk=request.user.pk)
             user.name = username
             user2.username = username
-            user.user_image = avatar
             if not user.is_salesman:
                 user.is_salesman = request.POST.get('is_salesman')
             user.save()
