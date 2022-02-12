@@ -1,0 +1,137 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="row">
+
+    <div class="col-9">
+
+    {% if user.verification %}
+    <div class="d-flex align-items-center">
+        <h2>Name: {{ user.name }}</h2>
+        <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
+    </div>
+    {% else %}
+    <h2>Name: {{ user.name }}</h2>
+    {% endif %}
+
+    {% if user.is_salesman %}
+    <h3>You'r goods</h3>
+        {% if all_products.count > 0 %}
+        <p>All goods: {{ all_products.count }}</p>
+            {% if shown_products.count == 0 %}
+            <p>All you'r goods are hidden</p>
+            {% elif shown_products.count > 2 %}
+            <div class="row d-flex flex-wrap jusctify-content-center">
+                {% for item in shown_products %}
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="{{ item.image.url }}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.describe }}</p>
+                        <div class="d-flex">
+                            <a href="" class="btn btn-success w-50 mx-1">Edit</a>
+                            <a href="" class="btn btn-danger w-50 mx-1">Delete</a>
+                        </div>
+                        <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="row d-flex flex-wrap jusctify-content-start">
+                {% for item in shown_products %}
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="{{ item.image.url }}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.describe }}</p>
+                        <div class="d-flex">
+                            <a href="" class="btn btn-success w-50 mx-1">Edit</a>
+                            <a href="" class="btn btn-danger w-50 mx-1">Delete</a>
+                        </div>
+                        <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>            
+            {% endif %}
+            <hr>
+            <h5>Hidden goods</h5>
+            {% if hidden_products.count == 0 %}
+            <p>No hidden products</p>
+            {% elif hidden_products.count > 2 %}
+            <div class="row d-flex flex-wrap jusctify-content-center">
+                {% for item in hidden_products %}
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="{{ item.image.url }}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.describe }}</p>
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-success w-50 mx-1">Edit</a>
+                            <a href="#" class="btn btn-danger w-50 mx-1">Delete</a>
+                        </div>
+                        <a href="{% url 'show_item' item.pk %}" class="btn btn-primary w-100 mt-3">Show item in you'r shop</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="row d-flex flex-wrap jusctify-content-start">
+                {% for item in hidden_products %}
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="{{ item.image.url }}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.describe }}</p>
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-success w-50 mx-1">Edit</a>
+                            <a href="#" class="btn btn-danger w-50 mx-1">Delete</a>
+                        </div>
+                        <a href="{% url 'show_item' item.pk %}" class="btn btn-primary w-100 mt-3">Show item in you'r shop</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div> 
+            {% endif %}
+        {% else %}
+        <p>You don't have an items!</p>
+        <a class="btn btn-success mb-3" href="#">Add item</a>
+        {% endif %}
+
+    {% endif %}
+    </div>
+
+    <div class="col-3">
+        {% if user.is_salesman %}
+        <h3>You'r is a salesman!</h3>
+            {% if user.verification %}
+            {% else %}
+            <p>To you'r shop is located in topping search apply for a verification!</p>
+            {% endif %}
+            <p>To close a you'r shop, please write to support team</p>
+            <p style="font-size: 1.2rem;"><b>If you have any questions, please write to suppoer team</b></p>
+            <a href="" class="btn btn-primary w-100">Write to support team</a>
+        {% else %}
+            <h3 class="text-center">Become a seller!</h3>
+            <a href="{% url 'set_salesman' %}" class="btn btn-primary w-100">Become a seller!</a> 
+        {% endif %}
+        <hr class="my-3">
+        <div class="wrap">
+            {% if user.verification %}
+            <div class="d-flex">
+                <a href="" class="btn btn-dark w-50 mb-3" style="margin-right: .5rem;">You'r settings</a>
+                <a href="" class="btn btn-dark w-50 mb-3" style="margin-left: .5rem;">You'r shopp settings</a>
+            </div>
+            {% else %}
+            <a href="" class="btn btn-dark w-100 mb-3" style="margin-right: .5rem;">You'r settings</a> 
+            {% endif %}
+            {% if user.is_salesman %}
+            <a class="btn btn-success w-100 mb-3" href="#">Add item</a>
+            {% endif %}
+            <a class="btn btn-danger w-100" href="{% url 'user_logout' %}">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

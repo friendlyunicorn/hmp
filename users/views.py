@@ -3,19 +3,29 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from products.models import *
 
 
 def profile(request, pk):
+    all_products = Product.objects.filter(salesman=pk)
+    shown_products = Product.objects.filter(salesman=pk, is_publish=True)
     user = Profile.objects.get(user=pk)
     data = {
-        'user': user
+        'all_products': all_products,
+        'user': user,
+        'shown_products': shown_products,
     }
-    return render(request, 'users/profile.html', data)
+    if request.user.pk == pk: # you'r profile
+        hidden_products = Product.objects.filter(salesman=request.user.pk, is_publish=False)
+        data['hidden_products'] = hidden_products
+        return render(request, 'users/my_profile.html', data)
+    else:
+        return render(request, 'users/profile.html', data)
     
 
 def user_login(request):
     data = {
-
+        'user': request.user
     }
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -57,3 +67,27 @@ def user_register(request):
 def user_logout(request):
     logout(request)
     return redirect('user_login')
+
+
+def set_salesman(request):
+    pk = request.user.pk
+    user = Profile.objects.get(user=pk)
+    user.is_salesman = True
+    user.save()
+    return redirect('profile', pk=pk)
+
+
+def show_item(request, pk):
+    user = request.user.pk
+    item = Product.objects.get(pk=pk)
+    item.is_publish = True
+    item.save()
+    return redirect('profile', pk=user)
+
+
+def hide_item(request, pk):
+    user = request.user.pk
+    item = Product.objects.get(pk=pk)
+    item.is_publish = False
+    item.save()
+    return redirect('profile', pk=user)

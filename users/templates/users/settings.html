@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% block title %}Profile settings{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+            <h2>Name: {{ user.name }}</h2>
+        </div>
+        <div class="col-4">
+            <!-- <li>You'r name</li> -->
+            <form method="POST" class="mb-2" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+<!--                 <label for="username">Name</label>
+                <input type="text" name="name" maxlength="255" class="my-2" value="{{ user.name }}"><br>
+                <label for="is_salesman">Become a seller</label>
+                {% if user.is_salesman %}
+                <input type="checkbox" name="is_salesman" class="my-2" checked>
+                {% else %}
+                <input type="checkbox" name="is_salesman" class="my-2">
+                {% endif %} -->
+                <input type="submit" name="" value="Save" class="btn btn-dark w-100">
+            </form>
+            <!-- <a class="btn btn-dark w-100">Save</a> -->
+            <hr class="my-4">
+            <div class="wrap">
+                {% if user.is_salesman %}
+                    <a class="btn btn-success w-100 mb-3" href="#">Add item</a>
+                {% endif %}
+                <a class="btn btn-danger w-100" href="{% url 'user_logout' %}">Logout</a>
+            </div>
+        </div> 
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+html, body {
+    height: 100%;
+}
+
+
+.card {
+    // width: 270px;
+    padding: 0!important;
+    border-radius: 1rem!important;
+    .card-img-top {
+        height: 200px!important;
+        object-fit: cover;
+        border-radius: 1rem!important;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        .card-text {
+            flex-grow: 1;
+        }
+    }
+}
+
+.verification-tick {
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+}
+
+.wrapper { 
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex: 0 0 auto;
+    color: white;
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}

@@ -10,42 +10,60 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">HandMade Portal</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="d-flex w-100">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex w-100">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main_index' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Salesmans</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex w-100 justify-content-end">
-                        <li class="nav-item">
-                            {% if user %}
-                                <a class="nav-link" href="#">{{ user.name }}</a>
-                            {% else %}
-                                <a class="nav-link" href="{% url 'user_login' %}">Login</a>
-                            {% endif %}
-                        </li>
-                    </ul>
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'main_index' %}">HandMade Portal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex w-100">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex w-100">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'main_index' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'all_products' %}">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'salesmans' %}">Salesmans</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex w-100 justify-content-end">
+                            <li class="nav-item">
+                                {% if request.user.is_anonymous %}
+                                    <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+                                {% else %}
+                                    <a class="nav-link" href="{% url 'profile' request.user.pk %}">{{ request.user.username }}</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+        </nav>
+        <div class="content container mt-5">
+            {% block content %}
+        
+            {% endblock %}
         </div>
-    </nav>
-    <div class="content container mt-5">
-        {% block content %}
-    
-        {% endblock %}
+        <footer class="bg-dark p-5 w-100">
+            <div class="d-flex justify-content-between">
+                <div class="col-4 d-flex flex-column">
+                    <a class="" href="{% url 'main_index' %}">Home</a>
+                    <a class="" href="{% url 'all_products' %}">Products</a>
+                    <a class="" href="{% url 'salesmans' %}">Salesmans</a>
+                </div>
+                <div class="col-4">
+                    <h3 class="text-center">Write to us!</h3>
+                    <form action="" method="post" class="d-flex flex-column align-items-center">
+                        <input type="text" name="msg" id="" class="form-control" placeholder="You'r text"><br>
+                        <input type="submit" value="Send" class="w-50 btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </footer>    
     </div>
 </body>
 </html>

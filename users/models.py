@@ -9,8 +9,10 @@ class Profile(models.Model):
     is_salesman = models.BooleanField(default=False, verbose_name='Is Salesman')
     verification = models.BooleanField(default=False, verbose_name='Verification')
 
+
     def __str__(self):
         return self.name
+
 
     class Meta:
         verbose_name = 'Profile'

@@ -1,0 +1,7 @@
+{% extends 'main/base.html' %}
+{% block title %}Salesmans{% endblock %}
+{% block content %}
+	{% for i in products %}
+		{{ i.title }}
+	{% endfor %}
+{% endblock %}
