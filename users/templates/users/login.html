@@ -1,10 +1,15 @@
 {% extends 'main/base.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <form action="" method="post">
+<div class="d-flex justify-content-center w-100">
+    <form action="" method="post" class="w-50">
         {% csrf_token %}
-        <input type="text" name="username"><br><br>
-        <input type="password" name="password"><br><br>
-        <input type="submit" value="Submit"><br>
+        <input type="text" name="username" class="form-control"><br><br>
+        <input type="password" name="password" class="form-control"><br><br>
+        <div class="d-flex">
+            <input type="submit" value="Login" class="btn btn-success w-50" style="margin-right: .5rem;"><br>
+            <a href="{% url 'user_register' %}" class="btn btn-primary w-50" style="margin-left: .5rem;">Registration</a>
+        </div>
     </form>
+</div>
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="row d-flex justify-content-center w-100">
+    <form action="" method="post" class="w-50">
+        {% csrf_token %}
+        <label for="">Background</label><br>
+        <input type="color" name="background" id="" value="{{ user.shop_background }}">
+        <input type="submit" value="Save" class="btn btn-primary w-100">
+    </form>
+</div>
+{% endblock %}

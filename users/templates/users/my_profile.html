@@ -2,19 +2,44 @@
 {% load static %}
 {% block title %}Profile{% endblock %}
 {% block content %}
+<style>
+    html, body {
+        background: {{ user.shop_background }};
+    }
+</style>
 <div class="row">
-
     <div class="col-9">
-
     {% if user.verification %}
     <div class="d-flex align-items-center">
-        <h2>Name: {{ user.name }}</h2>
-        <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
+        {% if user.user_image %}
+        <div class="user_avatar">
+            <a href="{% url 'profile_settings' %}"><img src="{{ user.user_image.url }}" alt="" class="user_avarar"></a>
+        </div>
+        {% endif %}
+        <div class="d-flex flex-column">
+            <div class="d-flex">
+                <h2>Name: {{ user.name }}</h2>
+                <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
+            </div>
+            <p class="user status">{{ user.status }}</p>
+            <p class="user raiting">User raiting: {{ user.raiting }}</p>
+        </div>
     </div>
     {% else %}
-    <h2>Name: {{ user.name }}</h2>
+    <div class="d-flex align-items-center">
+        {% if user.user_image %}
+        <div class="user_avatar">
+            <a href="{% url 'profile_settings' %}"><img src="{{ user.user_image.url }}" alt="" class="user_avarar"></a>
+        </div>
+        {% endif %}
+        <div class="d-flex flex-column">
+            <h2>Name: {{ user.name }}</h2>
+            <p class="user status">{{ user.status }}</p>
+            <p class="user raiting">User raiting: {{ user.raiting }}</p>
+        </div>
+    </div>
     {% endif %}
-
+    <hr>
     {% if user.is_salesman %}
     <h3>You'r goods</h3>
         {% if all_products.count > 0 %}
@@ -29,6 +54,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ item.title }}</h5>
                         <p class="card-text">{{ item.describe }}</p>
+                        <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
                                 <a href="" class="btn btn-success w-50 mx-1">Edit</a>
@@ -48,6 +74,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ item.title }}</h5>
                         <p class="card-text">{{ item.describe }}</p>
+                        <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
                                 <a href="" class="btn btn-success w-50 mx-1">Edit</a>
@@ -72,6 +99,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ item.title }}</h5>
                         <p class="card-text">{{ item.describe }}</p>
+                        <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-success w-50 mx-1">Edit</a>
@@ -91,6 +119,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ item.title }}</h5>
                         <p class="card-text">{{ item.describe }}</p>
+                        <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-success w-50 mx-1">Edit</a>
@@ -107,10 +136,8 @@
         <p>You don't have an items!</p>
         <a class="btn btn-success mb-3" href="#">Add item</a>
         {% endif %}
-
     {% endif %}
     </div>
-
     <div class="col-3">
         {% if user.is_salesman %}
         <h3>You'r is a salesman!</h3>
@@ -129,11 +156,11 @@
         <div class="wrap">
             {% if user.verification %}
             <div class="d-flex">
-                <a href="" class="btn btn-dark w-50 mb-3" style="margin-right: .5rem;">You'r settings</a>
-                <a href="" class="btn btn-dark w-50 mb-3" style="margin-left: .5rem;">You'r shop settings</a>
+                <a href="{% url 'profile_settings' %}" class="btn btn-dark w-50 mb-3" style="margin-right: .5rem;">You'r settings</a>
+                <a href="{% url 'shop_settings' %}" class="btn btn-dark w-50 mb-3" style="margin-left: .5rem;">You'r shop settings</a>
             </div>
             {% else %}
-            <a href="" class="btn btn-dark w-100 mb-3" style="margin-right: .5rem;">You'r settings</a> 
+            <a href="{% url 'profile_settings' %}" class="btn btn-dark w-100 mb-3" style="margin-right: .5rem;">You'r settings</a> 
             {% endif %}
             {% if user.is_salesman %}
             <a class="btn btn-success w-100 mb-3" href="#">Add item</a>

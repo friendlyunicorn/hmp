@@ -91,3 +91,41 @@ def hide_item(request, pk):
     item.is_publish = False
     item.save()
     return redirect('profile', pk=user)
+
+
+def profile_settings(request):
+    user = Profile.objects.get(user=request.user.pk)
+    data = {
+        'user': user
+    }
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        status = request.POST.get('status')
+        avatar = request.POST.get('user_photo')
+        if username:
+            user = Profile.objects.get(user=request.user.pk)
+            user.status = status
+            user2 = User.objects.get(pk=request.user.pk)
+            user.name = username
+            user2.username = username
+            user.user_image = avatar
+            if not user.is_salesman:
+                user.is_salesman = request.POST.get('is_salesman')
+            user.save()
+            user2.save()
+            return redirect('profile_settings')
+    return render(request, 'users/settings.html', data)
+
+
+def shop_settings(request):
+    user = Profile.objects.get(user=request.user.pk)
+    data = {
+        'user': user
+    }
+    if request.method == 'POST':
+        background = request.POST.get('background')
+        user.shop_background = background
+        user.save()
+        return redirect('shop_settings')
+    return render(request, 'users/shop_settings.html', data)
+    

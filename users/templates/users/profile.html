@@ -1,5 +1,83 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-    user name: {{ user.name }}
+<style>
+    html, body {
+        background: {{ user.shop_background }};
+    }
+</style>
+    <div class="row">
+        <div class="col-9">
+            {% if user.is_salesman %}
+                {% if user.verification %}
+                <div class="d-flex align-items-center">
+                    <h2>Name: {{ user.name }}</h2>
+                    <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
+                </div>
+                {% else %}
+                <h2>Name: {{ user.name }}</h2>
+                {% endif %}
+            {% else %}
+            <p>{{ user.name }} is not salesman</p>
+            See all <a href="{% url 'salesmans' %}">salesmans</a>
+            {% endif %}
+            <hr>
+            {% if user.is_salesman %}
+                {% if all_products.count > 0 %}
+                <p>All goods: {{ all_products.count }}</p>
+                    {% if shown_products.count == 0 %}
+                    <p>{{ user.name }} hidden all goods</p>
+                    {% else %}
+                        {% if shown_products > 2 %}
+                        <div class="row d-flex flex-wrap jusctify-content-center">
+                            {% for item in shown_products %}
+                            <div class="card m-3" style="width: 18rem;">
+                                <img src="{{ item.image.url }}" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.title }}</h5>
+                                    <p class="card-text">{{ item.describe }}</p>
+                                    <p class="card-text">Price: {{ item.price }} rub</p>
+                                    <div class="card-btns">
+                                        <div class="d-flex">
+                                            <a href="" class="btn btn-success w-50 mx-1">Edit</a>
+                                            <a href="" class="btn btn-danger w-50 mx-1">Delete</a>
+                                        </div>
+                                        <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="row d-flex flex-wrap jusctify-content-start">
+                            {% for item in shown_products %}
+                            <div class="card m-3" style="width: 18rem;">
+                                <img src="{{ item.image.url }}" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.title }}</h5>
+                                    <p class="card-text">{{ item.describe }}</p>
+                                    <p class="card-text">Price: {{ item.price }} rub</p>
+                                    <div class="card-btns">
+                                        <div class="d-flex">
+                                            <a href="" class="btn btn-success w-50 mx-1">Buy</a>
+                                            <a href="" class="btn btn-primary w-50 mx-1">To favorites</a>
+                                        </div>
+                                        <a href="" class="btn btn-primary w-100 mt-3">Read info about item</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div> 
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                <p>{{ user.name }} has no goods</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <a href="" class="btn btn-danger w-100">Report about this account</a>
+        </div>
+    </div>
 {% endblock %}
