@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% block title %}Add item{% endblock %}
+{% block content %}
+<div class="row d-flex justify-content-center w-100">
+    <form action="" method="post" class="w-50">
+        {% csrf_token %}
+        <label for="">Item photo</label></br>
+        <input type="file" name="image" id=""><br><br>
+        <label for="">Title</label><br>
+        <input type="text" name="title" id="" placeholder="Item title" class="w-100 form-control"><br><br>
+        <label for="">Describe</label>
+        <input type="text" name="describe" placeholder="Short describe" class="w-100 form-control"><br><br>
+        <label for="">Price</label><br>
+        <input type="number" name="price" id="" class="w-100 form-control"><br><br>
+        <label for="">Show in shop</label>
+        <input type="checkbox" name="is_pub" id="" checked><br><br>
+        <input type="submit" value="Add item" class="btn btn-primary w-100">
+    </form>
+</div>
+{% endblock %}

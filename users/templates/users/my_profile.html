@@ -57,8 +57,8 @@
                         <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
-                                <a href="" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="" class="btn btn-danger w-50 mx-1">Delete</a>
+                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
                             </div>
                             <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
                         </div>
@@ -77,8 +77,8 @@
                         <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
-                                <a href="" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="" class="btn btn-danger w-50 mx-1">Delete</a>
+                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
                             </div>
                             <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
                         </div>
@@ -102,8 +102,8 @@
                         <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
-                                <a href="#" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="#" class="btn btn-danger w-50 mx-1">Delete</a>
+                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
                             </div>
                             <a href="{% url 'show_item' item.pk %}" class="btn btn-primary w-100 mt-3">Show item in you'r shop</a>
                         </div>
@@ -122,8 +122,8 @@
                         <p class="card-text">Price: {{ item.price }} rub</p>
                         <div class="card-btns">
                             <div class="d-flex">
-                                <a href="#" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="#" class="btn btn-danger w-50 mx-1">Delete</a>
+                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
                             </div>
                             <a href="{% url 'show_item' item.pk %}" class="btn btn-primary w-100 mt-3">Show item in you'r shop</a>
                         </div>
@@ -134,7 +134,7 @@
             {% endif %} 
         {% else %}
         <p>You don't have an items!</p>
-        <a class="btn btn-success mb-3" href="#">Add item</a>
+        <a class="btn btn-success mb-3" href="{% url 'add_item' %}">Add item</a>
         {% endif %}
     {% endif %}
     </div>
@@ -163,7 +163,7 @@
             <a href="{% url 'profile_settings' %}" class="btn btn-dark w-100 mb-3" style="margin-right: .5rem;">You'r settings</a> 
             {% endif %}
             {% if user.is_salesman %}
-            <a class="btn btn-success w-100 mb-3" href="#">Add item</a>
+            <a class="btn btn-success w-100 mb-3" href="{% url 'add_item' %}">Add item</a>
             {% endif %}
             <a class="btn btn-danger w-100" href="{% url 'user_logout' %}">Logout</a>
         </div>

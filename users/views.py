@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from products.models import *
+from django.core.files.storage import FileSystemStorage
 
 
 def profile(request, pk):
@@ -131,3 +132,59 @@ def shop_settings(request):
         return redirect('shop_settings')
     return render(request, 'users/shop_settings.html', data)
     
+
+def item_delete(request, pk):
+    Product.objects.get(pk=pk).delete()
+    return redirect('profile', request.user.pk)
+
+
+def add_item(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        image = request.POST.get('image')
+        describe = request.POST.get('describe')
+        price = request.POST.get('price')
+        is_publish = request.POST.get('is_pub')
+        profile = Profile.objects.get(user=request.user.pk)
+        if title != "" and describe != "" and price != "0":  
+            if is_publish == "on":
+                is_publish = True
+            else:
+                is_publish = False
+            Product(
+                salesman = profile,
+                title = title,
+                image = image,
+                describe = describe,
+                price = price,
+                is_publish = is_publish
+            ).save()
+            return redirect('profile', request.user.pk)
+    return render(request, 'products/add.html')
+
+
+def edit_item(request, pk):
+    item = Product.objects.get(pk=pk)
+    title = request.POST.get('title')
+    image = request.POST.get('image')
+    describe = request.POST.get('describe')
+    price = request.POST.get('price')
+    is_publish = request.POST.get('is_pub')
+    data = {
+        'item': item
+    }
+    profile = Profile.objects.get(user=request.user.pk)
+    if request.method == 'POST':
+        if is_publish == "on":
+            is_publish = True
+        else:
+            is_publish = False
+        if title != "" and describe != "" and price != '0':
+            item.image = image
+            item.title = title
+            item.describe = describe
+            item.price = price
+            item.is_publish = is_publish
+            item.save()
+        return redirect('profile', profile.pk)
+    return render(request, 'products/edit.html', data)

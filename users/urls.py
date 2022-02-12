@@ -12,4 +12,7 @@ urlpatterns = [
     path('hide-item/<int:pk>', hide_item, name="hide_item"),
     path('settings/', profile_settings, name='profile_settings'),
     path('shop-settings/', shop_settings, name='shop_settings'),
+    path('item-delete/<int:pk>', item_delete, name='item_delete'),
+    path('item-add/', add_item, name='add_item'),
+    path('item-edit/<int:pk>', edit_item, name='edit_item'),
 ]

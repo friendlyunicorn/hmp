@@ -10,9 +10,9 @@
         {% endif %}
         <input type="file" name="user_photo" id="" value="{{ user.user_image.url }}"><br><br>
         <label for="">Username</label><br>
-        <input type="text" name="username" id="" value="{{ user.name }}" class="w-100"><br><br>
+        <input type="text" name="username" id="" value="{{ user.name }}" class="form-control w-100"><br><br>
         <label for="">Status</label>
-        <input type="text" name="status" value="{{ user.status }}" class="w-100"><br><br>
+        <input type="text" name="status" value="{{ user.status }}" class="form-control w-100"><br><br>
         <label for="">Is salessman</label><br>
         {% if user.is_salesman %}
         <p>Yes. To close a you'r shop, please <a href="" class="btn btn-primary">Write to support team</a></p>
