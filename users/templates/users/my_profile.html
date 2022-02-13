@@ -18,7 +18,7 @@
         {% endif %}
         <div class="d-flex flex-column">
             <div class="d-flex align-items-center">
-                <h2>Name: {{ user.name }}</h2>
+                <h2>{{ user.name }}</h2>
                 <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
             </div>
             <p class="user status">{{ user.status }}</p>
@@ -33,7 +33,7 @@
         </div>
         {% endif %}
         <div class="d-flex flex-column">
-            <h2>Name: {{ user.name }}</h2>
+            <h2>{{ user.name }}</h2>
             <p class="user status">{{ user.status }}</p>
             <p class="user raiting">User raiting: {{ user.raiting }}</p>
         </div>
