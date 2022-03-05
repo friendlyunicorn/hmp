@@ -2,21 +2,37 @@
 {% load static %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-<style>
-    html, body {
-        background: {{ user.shop_background }};
-    }
-</style>
     <div class="row">
         <div class="col-9">
             {% if user.is_salesman %}
                 {% if user.verification %}
-                <div class="d-flex align-items-center">
-                    <h2>{{ user.name }}</h2>
-                    <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
+                <div class="d-flex align-items-center user-header" style="background-color: {{ user.shop_background }}; border-radius: 8px; padding: 1rem;">
+                    <div class="user_avatar justify-content-center align-items-center col-12 col-sm-6 text-center mb-3">
+                        <img src="{{ user.user_image.url }}" alt="" class="user_avarar">
+                    </div>
+                    <div class="d-flex flex-column user-info col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <h2>{{ user.name }}</h2>
+                            <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
+                        </div>
+                        <p class="user status">{{ user.status }}</p>
+                        <p class="user raiting">User raiting: {{ user.raiting }}</p>
+                    </div>
                 </div>
                 {% else %}
-                <h2>{{ user.name }}</h2>
+                <div class="d-flex align-items-center user-header" style="background-color: {{ user.shop_background }}; border-radius: 8px; padding: 1rem;">
+                    <div class="user_avatar justify-content-center align-items-center col-12 col-sm-6 text-center mb-3">
+                        <img src="{{ user.user_image.url }}" alt="" class="user_avarar">
+                    </div>
+                    <div class="d-flex flex-column user-info col-12 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <h2>{{ user.name }}</h2>
+                            <!-- <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick"> -->
+                        </div>
+                        <p class="user status">{{ user.status }}</p>
+                        <p class="user raiting">User raiting: {{ user.raiting }}</p>
+                    </div>
+                </div>
                 {% endif %}
             {% else %}
             <p>{{ user.name }} is not salesman</p>
@@ -36,12 +52,12 @@
                                 <img src="{{ item.image.url }}" alt="" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ item.title }}</h5>
-                                    <p class="card-text">{{ item.describe }}</p>
+                                    <!-- <p class="card-text">{{ item.describe }}</p> -->
                                     <p class="card-text">Price: {{ item.price }} rub</p>
                                     <div class="card-btns">
-                                        <div class="d-flex">
-                                            <a href="" class="btn btn-success w-50 mx-1">Buy</a>
-                                            <a href="" class="btn btn-danger w-50 mx-1">To favorites</a>
+                                        <div class="justify-content-center row">
+                                            <a href="" class="btn btn-success col-sm-5 col-10 mx-1">Buy</a>
+                                            <a href="" class="btn btn-primary col-sm-5 col-10 mx-1">To favorites</a>
                                         </div>
                                         <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Read info about item</a>
                                     </div>
@@ -56,12 +72,12 @@
                                 <img src="{{ item.image.url }}" alt="" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ item.title }}</h5>
-                                    <p class="card-text">{{ item.describe }}</p>
+                                    <!-- <p class="card-text">{{ item.describe }}</p> -->
                                     <p class="card-text">Price: {{ item.price }} rub</p>
                                     <div class="card-btns">
-                                        <div class="d-flex">
-                                            <a href="" class="btn btn-success w-50 mx-1">Buy</a>
-                                            <a href="" class="btn btn-primary w-50 mx-1">To favorites</a>
+                                        <div class="justify-content-center row">
+                                            <a href="" class="btn btn-success col-sm-5 col-10 mx-1">Buy</a>
+                                            <a href="" class="btn btn-primary col-sm-5 col-10 mx-1">To favorites</a>
                                         </div>
                                         <a href="" class="btn btn-primary w-100 mt-3">Read info about item</a>
                                     </div>

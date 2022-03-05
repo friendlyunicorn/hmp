@@ -10,8 +10,9 @@ def main_index(request):
         # print(request.user.pk)
         # user = None
         user = Profile.objects.get(user=request.user.pk)
-
+    products = Product.objects.all()
     data = {
+        'products': products,
         'user': user
     }
     return render(request, 'main/index.html', data)

@@ -2,21 +2,18 @@
 {% load static %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-<style>
-    html, body {
-        background: {{ user.shop_background }};
-    }
-</style>
 <div class="row">
-    <div class="col-9">
+    <div class="col-12 col-md-9">
     {% if user.verification %}
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center row user-header" style="background-color: {{ user.shop_background }}; border-radius: 8px; padding: 1rem;">
         {% if user.user_image %}
-        <div class="user_avatar">
-            <a href="{% url 'profile_settings' %}"><img src="{{ user.user_image.url }}" alt="" class="user_avarar"></a>
+        <div class="user_avatar justify-content-center align-items-center col-12 col-sm-6 text-center mb-3">
+            <a href="{% url 'profile_settings' %}">
+                <img src="{{ user.user_image.url }}" alt="" class="user_avarar">
+            </a>
         </div>
         {% endif %}
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column user-info col-12 col-sm-6">
             <div class="d-flex align-items-center">
                 <h2>{{ user.name }}</h2>
                 <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick">
@@ -26,14 +23,19 @@
         </div>
     </div>
     {% else %}
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center row user-header" style="background-color: {{ user.shop_background }}; border-radius: 8px; padding: 1rem;">
         {% if user.user_image %}
-        <div class="user_avatar">
-            <a href="{% url 'profile_settings' %}"><img src="{{ user.user_image.url }}" alt="" class="user_avarar"></a>
+        <div class="user_avatar justify-content-center align-items-center col-12 col-sm-6 text-center mb-3">
+            <a href="{% url 'profile_settings' %}">
+                <img src="{{ user.user_image.url }}" alt="" class="user_avarar">
+            </a>
         </div>
         {% endif %}
-        <div class="d-flex flex-column">
-            <h2>{{ user.name }}</h2>
+        <div class="d-flex flex-column user-info col-12 col-sm-6">
+            <div class="d-flex align-items-center">
+                <h2>{{ user.name }}</h2>
+                <!-- <img src="{% static 'images/tick.svg' %}" alt="" class="verification-tick"> -->
+            </div>
             <p class="user status">{{ user.status }}</p>
             <p class="user raiting">User raiting: {{ user.raiting }}</p>
         </div>
@@ -45,20 +47,32 @@
         {% if all_products.count > 0 %}
         <p>All goods: {{ all_products.count }}</p>
             {% if shown_products.count == 0 %}
+            <a href="{% url 'add_item' %}">
+                <div class="card add-item m-3 d-flex justify-content-center align-items-center"  >
+                    <p>Add item</p>
+                </div>
+            </a>            
             <p>All you'r goods are hidden</p>
             {% elif shown_products.count > 2 %}
             <div class="row d-flex flex-wrap jusctify-content-center">
+
+                <a href="{% url 'add_item' %}">
+                    <div class="card add-item m-3 d-flex justify-content-center align-items-center"  >
+                        <p>Add item</p>
+                    </div>
+                </a>
+
                 {% for item in shown_products %}
-                <div class="card m-3" style="width: 18rem;">
+                <div class="card m-3"  >
                     <img src="{{ item.image.url }}" alt="" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">{{ item.title }}</h5>
-                        <p class="card-text">{{ item.describe }}</p>
+                        <h5 class="card-title">{{ item.title|truncatechars:25 }}</h5>
+                        <!-- <p class="card-text">{{ item.describe|truncatewords:25 }}</p> -->
                         <p class="card-text">Price: {{ item.price }} rub</p>
-                        <div class="card-btns">
-                            <div class="d-flex">
-                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
+                        <div class="card-btns d-flex flex-column align-items-center">
+                            <div class="justify-content-center row">
+                                <a href="{% url 'edit_item' item.pk %}" class="col-10 col-sm-5 btn btn-success mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="col-10 col-sm-5 btn btn-danger mx-1">Delete</a>
                             </div>
                             <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
                         </div>
@@ -68,17 +82,24 @@
             </div>
             {% else %}
             <div class="row d-flex flex-wrap jusctify-content-start">
+
+                <a href="{% url 'add_item' %}">
+                    <div class="card add-item m-3 d-flex justify-content-center align-items-center">
+                        <p>Add item</p>
+                    </div>
+                </a>
+
                 {% for item in shown_products %}
-                <div class="card m-3" style="width: 18rem;">
+                <div class="card m-3">
                     <img src="{{ item.image.url }}" alt="" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">{{ item.title }}</h5>
-                        <p class="card-text">{{ item.describe }}</p>
+                        <h5 class="card-title">{{ item.title|truncatechars:25 }}</h5>
+                        <!-- <p class="card-text">{{ item.describe|truncatewords:25 }}</p> -->
                         <p class="card-text">Price: {{ item.price }} rub</p>
-                        <div class="card-btns">
-                            <div class="d-flex">
-                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
+                        <div class="card-btns d-flex flex-column align-items-center">
+                            <div class="justify-content-center row">
+                                <a href="{% url 'edit_item' item.pk %}" class="col-10 col-sm-5 btn btn-success mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="col-10 col-sm-5 btn btn-danger mx-1">Delete</a>
                             </div>
                             <a href="{% url 'hide_item' item.pk %}" class="btn btn-light w-100 mt-3">Hide item in you'r shop</a>
                         </div>
@@ -94,16 +115,16 @@
             {% elif hidden_products.count > 2 %}
             <div class="row d-flex flex-wrap jusctify-content-center">
                 {% for item in hidden_products %}
-                <div class="card m-3" style="width: 18rem;">
+                <div class="card m-3"  >
                     <img src="{{ item.image.url }}" alt="" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">{{ item.title }}</h5>
-                        <p class="card-text">{{ item.describe }}</p>
+                        <h5 class="card-title">{{ item.title|truncatechars:25 }}</h5>
+                        <!-- <p class="card-text">{{ item.describe|truncatewords:25 }}</p> -->
                         <p class="card-text">Price: {{ item.price }} rub</p>
-                        <div class="card-btns">
-                            <div class="d-flex">
-                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
+                        <div class="card-btns d-flex flex-column align-items-center">
+                            <div class="justify-content-center row">
+                                <a href="{% url 'edit_item' item.pk %}" class="col-10 col-sm-5 btn btn-success mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="col-10 col-sm-5 btn btn-danger mx-1">Delete</a>
                             </div>
                             <a href="{% url 'show_item' item.pk %}" class="btn btn-primary w-100 mt-3">Show item in you'r shop</a>
                         </div>
@@ -114,16 +135,16 @@
             {% else %}
             <div class="row d-flex flex-wrap jusctify-content-start">
                 {% for item in hidden_products %}
-                <div class="card m-3" style="width: 18rem;">
+                <div class="card m-3"  >
                     <img src="{{ item.image.url }}" alt="" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="card-title">{{ item.title }}</h5>
-                        <p class="card-text">{{ item.describe }}</p>
+                        <h5 class="card-title">{{ item.title|truncatechars:25}}</h5>
+                        <!-- <p class="card-text">{{ item.describe|truncatewords:25 }}</p> -->
                         <p class="card-text">Price: {{ item.price }} rub</p>
-                        <div class="card-btns">
-                            <div class="d-flex">
-                                <a href="{% url 'edit_item' item.pk %}" class="btn btn-success w-50 mx-1">Edit</a>
-                                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger w-50 mx-1">Delete</a>
+                        <div class="card-btns d-flex flex-column align-items-center">
+                            <div class="justify-content-center row">
+                                <a href="{% url 'edit_item' item.pk %}" class="col-10 col-sm-5 btn btn-success mx-1">Edit</a>
+                                <a href="{% url 'item_delete' item.pk %}" class="col-10 col-sm-5 btn btn-danger mx-1">Delete</a>
                             </div>
                             <a href="{% url 'show_item' item.pk %}" class="btn btn-primary w-100 mt-3">Show item in you'r shop</a>
                         </div>
@@ -138,7 +159,7 @@
         {% endif %}
     {% endif %}
     </div>
-    <div class="col-3">
+    <div class="col-12 col-md-3">
         {% if user.is_salesman %}
         <h3>You'r is a salesman!</h3>
             {% if user.verification %}

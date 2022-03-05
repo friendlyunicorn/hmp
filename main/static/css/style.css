@@ -1,10 +1,104 @@
 html, body {
   height: 100%;
+  font-size: 16px !important;
+}
+
+a {
+  width: auto !important;
+  text-decoration: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+  html, body {
+    font-size: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .user-info {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+.user-header {
+  position: relative;
+  height: 250px;
+  margin-bottom: 10rem;
+}
+
+.user-header .user_avarar {
+  position: absolute;
+  left: 5rem;
+}
+
+.user-header .user-info {
+  position: absolute;
+  right: 8rem;
+  bottom: -135px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .user-header .user-info {
+    right: 5rem;
+  }
+}
+
+@media only screen and (max-width: 1299px) {
+  .user-header .user-info {
+    right: 1rem;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .user-header .user-info {
+    right: 0;
+  }
+  .user-header .user_avarar {
+    position: absolute;
+    left: 1rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .user-header .user-info {
+    right: 0;
+    bottom: -9rem;
+  }
+  .user-header .user_avarar {
+    position: absolute;
+    left: 1rem;
+  }
 }
 
 .card {
+  width: 18rem;
   padding: 0 !important;
   border-radius: 1rem !important;
+}
+
+.card.add-item {
+  -webkit-transition: all .15s ease-in;
+  transition: all .15s ease-in;
+  height: 93%;
+  margin-left: 0 !important;
+  background: #f0ffe4;
+}
+
+.card.add-item p {
+  color: #121212 !important;
+  text-decoration: none !important;
+}
+
+.card.add-item:hover {
+  -webkit-transform: translateY(-4px);
+          transform: translateY(-4px);
+  -webkit-box-shadow: 0px 4px 10px rgba(23, 23, 23, 0.5);
+          box-shadow: 0px 4px 10px rgba(23, 23, 23, 0.5);
 }
 
 .card .card-img-top {
@@ -28,6 +122,18 @@ html, body {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .card .card-btns .btn {
+    width: 100% !important;
+    margin: .2rem 0;
+  }
+}
+
+.btn {
+  min-width: 125px;
 }
 
 .verification-tick {
@@ -69,8 +175,10 @@ footer a {
 }
 
 .user_avarar {
-  width: 256px;
-  height: 256px;
+  width: 16rem;
+  height: 16rem;
+  max-width: 256px;
+  max-height: 256px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 100%;

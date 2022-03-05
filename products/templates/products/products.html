@@ -7,8 +7,8 @@
 	<div class="card m-3" style="width: 18rem;">
 		<img src="{{ i.image.url }}" alt="" class="card-img-top">
 		<div class="card-body">
-			<h5 class="card-title">{{ i.title }}</h5>
-			<p class="card-text">{{ i.describe }}</p>
+			<h5 class="card-title">{{ i.title|truncatechars:25 }}</h5>
+			<!-- <p class="card-text">{{ i.describe }}</p> -->
 			<p class="card-text">Salesman: <a href="{% url 'profile' i.salesman.pk %}">{{ i.salesman }}</a></p>
 			<p class="card-text">Price: {{ i.price }} rub</p>
 			<div class="card-btns">
