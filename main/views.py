@@ -10,7 +10,7 @@ def main_index(request):
         # print(request.user.pk)
         # user = None
         user = Profile.objects.get(user=request.user.pk)
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('price')
     data = {
         'products': products,
         'user': user
@@ -27,7 +27,7 @@ def salesmans(request):
 
 
 def all_products(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('price')
     data = {
         'products': products
     }
